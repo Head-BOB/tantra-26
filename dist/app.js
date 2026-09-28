@@ -88,3 +88,44 @@ document.querySelectorAll('[data-fest-panel]').forEach(button=>button.addEventLi
 }));
 
 setMotion(!reduced);resize();requestAnimationFrame(frame);
+
+
+// Keep every scene fitted as the mobile browser toolbar opens/closes.
+(() => {
+  const viewport = window.visualViewport;
+  const stage = document.getElementById('stage');
+  let pending = 0;
+  let previousHeight = 0;
+
+  function syncViewport() {
+    pending = 0;
+
+    // Preserve normal pinch-to-zoom behavior.
+    if (viewport && Math.abs(viewport.scale - 1) > 0.01) return;
+
+    const height = Math.ceil(viewport?.height || window.innerHeight);
+
+    if (height !== previousHeight) {
+      previousHeight = height;
+      document.documentElement.style.setProperty(
+        '--scene-height',
+        `${height}px`
+      );
+    }
+
+    resize();
+  }
+
+  function scheduleSync() {
+    if (!pending) pending = requestAnimationFrame(syncViewport);
+  }
+
+  window.addEventListener('resize', scheduleSync, { passive: true });
+  window.addEventListener('pageshow', scheduleSync);
+  viewport?.addEventListener('resize', scheduleSync, { passive: true });
+
+  // Update animation dimensions whenever the stage itself changes size.
+  new ResizeObserver(scheduleSync).observe(stage);
+
+  syncViewport();
+})();

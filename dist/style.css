@@ -210,11 +210,24 @@ header nav a[aria-expanded="true"]:after{right:0}
   display: none !important;
 }
 
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
 body:not(.quiet) #stage {
   position: fixed;
-  inset: 0;
+  inset: 0 0 auto;
   width: 100%;
-  height: 100%;
-  height: 100dvh;
+  height: var(--scene-height, 100dvh);
   overflow: hidden;
+}
+
+body:not(.quiet) #stage > .act {
+  inset: 0;
+  height: 100%;
+}
+
+.journey-nav {
+  display: none !important;
 }
