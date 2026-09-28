@@ -1,0 +1,3 @@
+Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
+
+https://scripts.sil.org/OFL

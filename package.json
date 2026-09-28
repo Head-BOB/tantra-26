@@ -1,0 +1,13 @@
+{
+  "name": "untitled-techfest",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "check": "node --check dist/app.js"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
+  }
+}
